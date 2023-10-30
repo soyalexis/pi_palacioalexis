@@ -27,7 +27,7 @@ async def PlayTimeGenre(genero: str):
         return {f"Año de lanzamiento con más horas jugadas para el género '{genero}'": year_with_most_playtime}
     
     
-df2 = pd.read_parquet('C:\\Users\W10\Desktop\\Entorno virtual 7\\data\\df_segundafuncionv2.parquet')
+df2 = pd.read_parquet('data\\df_segundafuncionv2.parquet')
 @app.get("/UserForGenre")
 def UserForGenre(genero:str):
     # Filtrar el DataFrame por genero
@@ -49,7 +49,7 @@ def UserForGenre(genero:str):
     return {"Usuario con más horas jugadas para " + genero: max_playtime_user, "Horas jugadas": playtime_list}
 
 
-df3 = pd.read_parquet('C:\\Users\W10\Desktop\\Entorno virtual 7\\Data\\df_tercerafuncionv1.parquet')
+df3 = pd.read_parquet('data\\df_tercerafuncionv1.parquet')
 @app.get("/UsersRecommend")
 def UsersRecommend(year:int):
     # Filtra el DataFrame para el año especificado y donde 'recommend' es True
@@ -77,7 +77,7 @@ def UsersRecommend(year:int):
     return resultado
 
 
-df4 = pd.read_parquet('C:\\Users\W10\Desktop\\Entorno virtual 7\\Data\\df_cuartafuncionv1.parquet')
+df4 = pd.read_parquet('data\\df_cuartafuncionv1.parquet')
 @app.get("/UsersNotRecommend")
 def UsersNotRecommend(year:int):
     # Filtra el DataFrame para el año especificado y donde 'recommend' es True
@@ -106,7 +106,7 @@ def UsersNotRecommend(year:int):
 
 
 
-df5 = pd.read_parquet('C:\\Users\W10\Desktop\\Entorno virtual 7\\data\\df_quintafuncionv1.parquet')
+df5 = pd.read_parquet('data\\df_quintafuncionv1.parquet')
 @app.get("/sentiment_analysis")
 def sentiment_analysis(año: int):
     # Filtra el DataFrame para el año especificado
