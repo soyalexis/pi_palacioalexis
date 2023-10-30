@@ -11,7 +11,7 @@ async def ruta_prueba():
     return "Hola"
 
 
-df1 = pd.read_parquet('C:\\Users\W10\Desktop\\Entorno virtual 7\\data\\df_primerafuncionv4.parquet')
+df1 = pd.read_parquet('df_primerafuncionv4.parquet')
 @app.get("/PlayTimeGenre/")
 async def PlayTimeGenre(genero: str):
         # Filtra las filas donde el género coincide
