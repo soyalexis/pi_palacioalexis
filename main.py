@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 import pandas as pd
-import fastparquet
-import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 #http://127.0.0.1:8000
 app = FastAPI()
-
 
 @app.get("/")
 async def ruta_prueba():
@@ -123,3 +121,37 @@ def sentiment_analysis(año: int):
     }
 
     return resultado
+
+dfnum = pd.read_parquet('df_numerico_recomendacion.parquet')
+dfuser = pd.read_parquet('df_user_recomendacion.parquet')
+@app.post("/recomendacion_usuario")
+def recomendacion_usuario(user_id):
+    user_similarity = cosine_similarity(dfnum)
+    user_similarity_df = pd.DataFrame(user_similarity, index=dfuser['user_id'], columns=dfuser['user_id'])
+    if user_id not in user_similarity_df.index:
+        return "Usuario no encontrado"
+
+    # Obtiene la fila de similitud del usuario
+    user_similarity = user_similarity_df.loc[user_id]
+
+    # Ordena los usuarios por similitud en orden descendente
+    similar_users = user_similarity.sort_values(ascending=False)[1:]  # Excluye al propio usuario
+
+    # Filtra los juegos jugados por usuarios similares
+    user_data = dfuser[dfuser['user_id'] == user_id]
+    games_played = user_data['item_name'].unique()
+
+    # Genera una lista de juegos recomendados
+    recommendations = []
+    unique_recommendations = set()  # Conjunto para asegurar recomendaciones únicas
+
+    for similar_user_id, similarity_score in similar_users.items():
+        similar_user_data = dfuser[dfuser['user_id'] == similar_user_id]
+        for game in similar_user_data['item_name']:
+            if game not in games_played and game not in unique_recommendations:
+                recommendations.append(game)
+                unique_recommendations.add(game)
+            if len(recommendations) >= 10:  # Recolecta 10 recomendaciones, ajusta según sea necesario
+                break
+
+    return recommendations[:5]  # Devuelve las primeras 5 recomendaciones únicas
