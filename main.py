@@ -8,7 +8,7 @@ app = FastAPI()
 async def ruta_prueba():
     return "Hola"
 
-df1 = pd.read_parquet('df_primerafuncionv4.parquet')
+df1 = pd.read_parquet("df_1redu.parquet")
 @app.get("/PlayTimeGenre/")
 async def PlayTimeGenre(genero: str):
         # Filtra las filas donde el género coincide
@@ -24,7 +24,7 @@ async def PlayTimeGenre(genero: str):
         return {f"Año de lanzamiento con más horas jugadas para el género '{genero}'": year_with_most_playtime}
     
     
-df2 = pd.read_parquet('df_segundafuncionv2.parquet')
+df2 = pd.read_parquet('df_2reducidov2.parquet')
 @app.get("/UserForGenre")
 def UserForGenre(genero:str):
     # Filtrar el DataFrame por genero
@@ -46,7 +46,7 @@ def UserForGenre(genero:str):
     return {"Usuario con más horas jugadas para " + genero: max_playtime_user, "Horas jugadas": playtime_list}
 
 
-df3 = pd.read_parquet('df_tercerafuncionv1.parquet')
+df3 = pd.read_parquet('df_3reducido.parquet')
 @app.get("/UsersRecommend")
 def UsersRecommend(year:int):
     # Filtra el DataFrame para el año especificado y donde 'recommend' es True
@@ -74,7 +74,7 @@ def UsersRecommend(year:int):
     return resultado
 
 
-df4 = pd.read_parquet('df_cuartafuncionv1.parquet')
+df4 = pd.read_parquet('df_4reducido.parquet')
 @app.get("/UsersNotRecommend")
 def UsersNotRecommend(year:int):
     # Filtra el DataFrame para el año especificado y donde 'recommend' es True
@@ -103,7 +103,7 @@ def UsersNotRecommend(year:int):
 
 
 
-df5 = pd.read_parquet('df_quintafuncionv1.parquet')
+df5 = pd.read_parquet('df_5sinreduccion.parquet')
 @app.get("/sentiment_analysis")
 def sentiment_analysis(año: int):
     # Filtra el DataFrame para el año especificado
