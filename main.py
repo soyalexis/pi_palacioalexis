@@ -121,12 +121,12 @@ def sentiment_analysis(año: int):
 
     return resultado
 
-dfnum = pd.read_parquet('df_numerico_recomendacion.parquet')
-dfuser = pd.read_parquet('df_user_recomendacion.parquet')
+df_reducido_num = pd.read_parquet('df_numerico_recomendacion_reducido.parquet')
+df_reducido_user = pd.read_parquet('df_user_recomendacion_reducido.parquet')
 @app.post("/recomendacion_usuario")
 def recomendacion_usuario(user_id):
-    user_similarity = cosine_similarity(dfnum)
-    user_similarity_df = pd.DataFrame(user_similarity, index=dfuser['user_id'], columns=dfuser['user_id'])
+    user_similarity = cosine_similarity(df_reducido_num)
+    user_similarity_df = pd.DataFrame(user_similarity, index=df_reducido_user['user_id'], columns=df_reducido_user['user_id'])
     if user_id not in user_similarity_df.index:
         return "Usuario no encontrado"
 
@@ -137,7 +137,7 @@ def recomendacion_usuario(user_id):
     similar_users = user_similarity.sort_values(ascending=False)[1:]  # Excluye al propio usuario
 
     # Filtra los juegos jugados por usuarios similares
-    user_data = dfuser[dfuser['user_id'] == user_id]
+    user_data = df_reducido_user[df_reducido_user['user_id'] == user_id]
     games_played = user_data['item_name'].unique()
 
     # Genera una lista de juegos recomendados
@@ -145,7 +145,7 @@ def recomendacion_usuario(user_id):
     unique_recommendations = set()  # Conjunto para asegurar recomendaciones únicas
 
     for similar_user_id, similarity_score in similar_users.items():
-        similar_user_data = dfuser[dfuser['user_id'] == similar_user_id]
+        similar_user_data = df_reducido_user[df_reducido_user['user_id'] == similar_user_id]
         for game in similar_user_data['item_name']:
             if game not in games_played and game not in unique_recommendations:
                 recommendations.append(game)
