@@ -8,7 +8,6 @@ app = FastAPI()
 async def ruta_prueba():
     return "Hola"
 
-
 df1 = pd.read_parquet('df_primerafuncionv4.parquet')
 @app.get("/PlayTimeGenre/")
 async def PlayTimeGenre(genero: str):
