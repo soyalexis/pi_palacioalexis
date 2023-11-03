@@ -1,12 +1,9 @@
 from fastapi import FastAPI
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-from fastapi.staticfiles import StaticFiles
 #http://127.0.0.1:8000
 app = FastAPI()
 
-# Configura la ruta de inicio para /docs
-app.mount("/docs", StaticFiles(directory="static"), name="docs")
 
 df1 = pd.read_parquet("df_1redu.parquet")
 @app.get("/PlayTimeGenre/")
