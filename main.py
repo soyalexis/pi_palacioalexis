@@ -12,7 +12,7 @@ async def PlayTimeGenre(genero: str):
         df_filtered = df1[df1['genres'] == genero]
 
         if df_filtered.empty:
-         return f"No se encontraron datos para el género '{genero}'"
+         return f"No se encontraron datos para el género '{genero}', ingresar genero en miniscula ej: action"
 
         # Encuentra el año con más horas jugadas para ese género
         year_with_most_playtime = int(df_filtered.groupby('Año')['playtime_forever'].sum().idxmax())
@@ -28,7 +28,7 @@ def UserForGenre(genero:str):
     df_genre = df2[df2['genres'] == genero]
 
     if df_genre.empty:
-        return {"Usuario con más horas jugadas para " + genero: "Ninguno", "Horas jugadas": []}
+        return {"Usuario con más horas jugadas para " + genero: "Ninguno, ingresar genero en miniscula ej: action", "Horas jugadas": []}
 
     df_genre['Año'] = pd.to_datetime(df_genre['Año'], format='%Y')
     # Encontrar el usuario con más horas jugadas para ese género
@@ -125,7 +125,7 @@ def recomendacion_usuario(user_id):
     user_similarity = cosine_similarity(df_reducido_num)
     user_similarity_df = pd.DataFrame(user_similarity, index=df_reducido_user['user_id'], columns=df_reducido_user['user_id'])
     if user_id not in user_similarity_df.index:
-        return "Usuario no encontrado"
+        return "Usuario no encontrado, ingresar algundos de los siguientes: 76561198045476116,ChipBae,mwanan,topkekhehe,dynamoburrito,76561198094044284"
 
     # Obtiene la fila de similitud del usuario
     user_similarity = user_similarity_df.loc[user_id]
