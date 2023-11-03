@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Proyecto Individual Parte 1 - Palacio Alexis (PI_Palacio)
 
 Este repositorio contiene el desarrollo de un proyecto que abarca tareas de ETL, Análisis Exploratorio de Datos (EDA), y Machine Learning (ML). El proyecto se dividió en partes, y cada una de ellas se abordó en notebooks independientes.
@@ -42,8 +41,3 @@ Enlaces:
         YouTube: https://youtu.be/mtsgqxSOVO0
         render: https://pi-palacioalexis.onrender.com/docs
         Gihub: https://github.com/soyalexis/pi_palacioalexis.git
-
-=======
-# pi_palacio
-proyecto indiviual parte 1 alexis palacio henry 
->>>>>>> 6f95a78a37361093a0d8b8b23ecd5856803715bf
